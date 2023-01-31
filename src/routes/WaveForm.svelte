@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import type { default as WaveSurferImport } from 'wavesurfer.js';
 	/* Waveform.tsx */
 
-	import WaveSurfer from 'wavesurfer.js';
+	let WaveSurfer: typeof WaveSurferImport | undefined;
+	onMount(async () => (WaveSurfer = (await import('wavesurfer.js')).default));
 	import Pause from './Icons/Pause.svelte';
 	import Play from './Icons/Play.svelte';
 	export let audio: Blob;
@@ -11,7 +14,7 @@
 	let isPlaying = false;
 
 	$: {
-		if (container && !wavesurfer) {
+		if (WaveSurfer && container && !wavesurfer) {
 			wavesurfer = WaveSurfer.create({
 				container,
 				waveColor: '#eeeeee',
