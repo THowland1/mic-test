@@ -13,6 +13,7 @@
 		audioDevicesLoading = true;
 		try {
 			await navigator.mediaDevices.getUserMedia({ audio: true });
+			await refreshMicrophonePermission();
 			const result = await navigator.mediaDevices.enumerateDevices();
 			const audioinputs = result.filter(
 				({ kind, deviceId }) => deviceId !== 'default' && kind === 'audioinput'
@@ -22,21 +23,22 @@
 					resolve(undefined);
 				}, fakeDelay)
 			);
+
 			devices = audioinputs;
 		} finally {
 			audioDevicesLoading = false;
 		}
 	}
 
-	async function queryMicrophonePermission() {
+	async function refreshMicrophonePermission() {
 		const { state } = await navigator.permissions.query({ name: 'microphone' as unknown as any });
-		return state;
+		microphonePermission = state;
 	}
 
 	let devices: MediaDeviceInfo[] = [];
 	let microphonePermission: PermissionState | undefined;
 	onMount(async () => {
-		microphonePermission = await queryMicrophonePermission();
+		await refreshMicrophonePermission();
 		await refreshAudioDevices(0);
 	});
 
@@ -46,13 +48,15 @@
 <svelte:head>
 	<title>Mic check</title>
 </svelte:head>
-
+{microphonePermission}
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
 <div class=" mt-4 mb-2 flex gap-2 items-center">
 	<h2 class="text-sm uppercase font-semibold text-neutral-500">Audio devices</h2>
-	<button on:click={() => refreshAudioDevices()} class:animate-spin={audioDevicesLoading}>
-		<ArrowPath class="w-3 h-3 text-neutral-500" stroke-width="2.5" />
-	</button>
+	{#if microphonePermission === 'granted'}
+		<button on:click={() => refreshAudioDevices()} class:animate-spin={audioDevicesLoading}>
+			<ArrowPath class="w-3 h-3 text-neutral-500" stroke-width="2.5" />
+		</button>
+	{/if}
 </div>
 {#if microphonePermission === undefined}
 	<div class="h-14" />
@@ -74,6 +78,7 @@
 			To see your microphones, you will need to grant this site access
 		</span>
 		<button
+			on:click={() => refreshAudioDevices()}
 			class="rounded py-1 px-3  bg-neutral-700/30 hover:bg-neutral-700 text-sm font-medium border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 			>Grant access</button
 		>
