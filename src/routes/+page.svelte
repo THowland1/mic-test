@@ -48,7 +48,6 @@
 <svelte:head>
 	<title>Mic check</title>
 </svelte:head>
-{microphonePermission}
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
 <div class=" mt-4 mb-2 flex gap-2 items-center">
 	<h2 class="text-sm uppercase font-semibold text-neutral-500">Audio devices</h2>
