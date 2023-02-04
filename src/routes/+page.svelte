@@ -6,6 +6,8 @@
 	import WaveForm from './WaveForm.svelte';
 	import { v4 as uuid } from 'uuid';
 	import Trash from './Icons/Trash.svelte';
+	import { persistedWritable } from '../persisted-writable';
+	import { blobToString, stringToBlob } from '../blob-strings';
 
 	let audioDevicesLoading = false;
 
@@ -24,7 +26,7 @@
 				}, fakeDelay)
 			);
 
-			devices = audioinputs;
+			$devices = audioinputs;
 		} finally {
 			audioDevicesLoading = false;
 		}
@@ -32,12 +34,17 @@
 
 	async function refreshMicrophonePermission() {
 		const { state } = await navigator.permissions.query({ name: 'microphone' as unknown as any });
-		microphonePermission = state;
+		$microphonePermission = state;
 	}
 
-	let devices: MediaDeviceInfo[] = [];
-	let microphonePermission: PermissionState | undefined;
+	let devices = persistedWritable<MediaDeviceInfo[]>('devices', []);
+	let microphonePermission = persistedWritable<PermissionState | undefined>(
+		'microphone-permission',
+		undefined
+	);
 	onMount(async () => {
+		devices.useLocalStorage();
+		microphonePermission.useLocalStorage();
 		await refreshMicrophonePermission();
 		await refreshAudioDevices(0);
 	});
@@ -51,15 +58,15 @@
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
 <div class=" mt-4 mb-2 flex gap-2 items-center">
 	<h2 class="text-sm uppercase font-semibold text-neutral-500">Audio devices</h2>
-	{#if microphonePermission === 'granted'}
+	{#if $microphonePermission === 'granted'}
 		<button on:click={() => refreshAudioDevices()} class:animate-spin={audioDevicesLoading}>
 			<ArrowPath class="w-3 h-3 text-neutral-500" stroke-width="2.5" />
 		</button>
 	{/if}
 </div>
-{#if microphonePermission === undefined}
+{#if $microphonePermission === undefined}
 	<div class="h-14" />
-{:else if microphonePermission === 'denied'}
+{:else if $microphonePermission === 'denied'}
 	<div
 		class="rounded p-4 flex gap-2 items-center border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 	>
@@ -68,7 +75,7 @@
 			To see your microphones, you will need update you browser's permissions for this site
 		</span>
 	</div>
-{:else if microphonePermission === 'prompt'}
+{:else if $microphonePermission === 'prompt'}
 	<div
 		class="rounded p-4 flex gap-2 items-center border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 	>
@@ -82,19 +89,23 @@
 			>Grant access</button
 		>
 	</div>
-{:else if microphonePermission === 'granted'}
+{:else if $microphonePermission === 'granted'}
 	<div class="flex gap-3 flex-wrap">
-		{#each devices as item}
+		{#each $devices as item}
 			<div
 				class="rounded p-4 flex-1 border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 			>
-				<div>
+				<div class="min-h-8 leading-none">
 					{item.label}
 				</div>
 				<div>
 					<AudioRecorder
 						deviceId={item.deviceId}
-						on:recordingCreated={(e) => {
+						on:recordingCreated={async (e) => {
+							const encorded = await blobToString(e.detail);
+							const decorded = stringToBlob(encorded);
+							console.log({ encorded, decorded, detail: e.detail });
+
 							recordings = [
 								{
 									id: uuid(),
