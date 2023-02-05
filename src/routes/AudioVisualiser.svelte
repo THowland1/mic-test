@@ -17,9 +17,8 @@
 	}
 
 	function draw() {
-		let canvasCtx = canvas.getContext('2d');
+		let canvasCtx = canvas?.getContext('2d');
 		if (!canvasCtx) {
-			console.error(`canvasCtx is null`);
 			return;
 		}
 		const WIDTH = canvas.width;

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import FakeMediaRecorderComponent from './FakeMediaRecorderComponent.svelte';
 	import MediaRecorderComponent from './MediaRecorderComponent.svelte';
 
 	const dispatch = createEventDispatcher<{ recordingCreated: Blob }>();
@@ -15,7 +16,9 @@
 	let streamPromise = getStream();
 </script>
 
-{#await streamPromise then stream}
+{#await streamPromise}
+	<FakeMediaRecorderComponent />
+{:then stream}
 	<MediaRecorderComponent
 		{stream}
 		on:recordingCreated={(e) => dispatch('recordingCreated', e.detail)}
