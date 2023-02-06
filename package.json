@@ -13,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^1.0.0",
+		"@sveltejs/adapter-vercel": "^1.0.6",
 		"@sveltejs/kit": "^1.0.0",
 		"@types/uuid": "^9.0.0",
 		"@types/wavesurfer.js": "^6.0.3",
