@@ -7,7 +7,6 @@
 	import { v4 as uuid } from 'uuid';
 	import Trash from './Icons/Trash.svelte';
 	import { persistedWritable } from '../persisted-writable';
-	import { blobToString, stringToBlob } from '../blob-strings';
 
 	let audioDevicesLoading = false;
 
@@ -102,10 +101,6 @@
 					<AudioRecorder
 						deviceId={item.deviceId}
 						on:recordingCreated={async (e) => {
-							const encorded = await blobToString(e.detail);
-							const decorded = stringToBlob(encorded);
-							console.log({ encorded, decorded, detail: e.detail });
-
 							recordings = [
 								{
 									id: uuid(),
