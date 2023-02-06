@@ -4,6 +4,8 @@
 	const TITLE = 'Mic Check';
 	const DESCRIPTION = "Check all your device's microphones!";
 	const IMAGE = `${$page.url.origin}/og-image.png`;
+
+	const URL = $page.url;
 </script>
 
 <svelte:head>
