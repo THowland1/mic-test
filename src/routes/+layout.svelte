@@ -7,6 +7,15 @@
 </script>
 
 <svelte:head>
+	<base href="/" />
+
+	<meta name="author" content="Tom Howland" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:url" content={URL.toString()} />
+	<meta property="og:type" content="website" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+
 	<title>{TITLE}</title>
 
 	<meta name="description" content={DESCRIPTION} />
