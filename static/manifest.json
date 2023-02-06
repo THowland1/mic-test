@@ -1,0 +1,8 @@
+{
+	"name": "Mic Check",
+	"short_name": "Mic Check",
+	"icons": [],
+	"display": "standalone",
+	"background_color": "#262626",
+	"theme_color": "#d4d4d4"
+}
