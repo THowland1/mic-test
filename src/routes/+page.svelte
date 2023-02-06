@@ -7,6 +7,12 @@
 	import { v4 as uuid } from 'uuid';
 	import Trash from './Icons/Trash.svelte';
 	import { persistedWritable } from '../persisted-writable';
+	import { page } from '$app/stores';
+	const TITLE = 'Mic Check';
+	const DESCRIPTION = "Check all your device's microphones!";
+	const IMAGE = `${$page.url.origin}/og-image.png`;
+
+	const URL = $page.url;
 
 	let audioDevicesLoading = false;
 
@@ -53,6 +59,26 @@
 
 <svelte:head>
 	<title>Mic check</title>
+	<base href="/" />
+
+	<meta name="author" content="Tom Howland" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:url" content={URL.toString()} />
+	<meta property="og:type" content="website" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+
+	<title>{TITLE}</title>
+
+	<meta name="description" content={DESCRIPTION} />
+	<meta property="og:title" content={TITLE} />
+	<meta property="og:description" content={DESCRIPTION} />
+	<meta property="og:site_name" content={TITLE} />
+	<meta name="twitter:title" content={TITLE} />
+	<meta name="twitter:description" content={DESCRIPTION} />
+	<meta name="twitter:image:alt" content={TITLE} />
+	<meta property="og:image" content={IMAGE} />
+	<meta name="twitter:image" content={IMAGE} />
 </svelte:head>
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
 <div class=" mt-4 mb-2 flex gap-2 items-center">
