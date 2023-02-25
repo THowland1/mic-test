@@ -220,10 +220,15 @@
   dependencies:
     import-meta-resolve "^2.2.0"
 
-"@sveltejs/adapter-vercel@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-vercel/-/adapter-vercel-1.0.6.tgz#bdc6301169db9bef1b7ef0cec96e97bb9330a6f8"
-  integrity sha512-fo6aaEygPd/6B5Jms4Ff7R4jbADnppuLvKOWBNTGe5MGB7ZRUkl+gxHWMQx2av2knyEZkA6V8y5M6R3ML5yN4g==
+"@sveltejs/adapter-static@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-2.0.1.tgz#b76f7742ae635e1c063efcab8c6de064255f6292"
+  integrity sha512-o5/q3YwD/ErxYCFlK1v3ydvldyNKk1lh3oeyxn4mhz+Pkbx/uuxhzmbOpytTlp5aVqNHDVsb04xadUzOFCDDzw==
+
+"@sveltejs/adapter-vercel@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-vercel/-/adapter-vercel-2.1.1.tgz#d72b5bd993c960c27d385a7d0f94d4d1a7a7b98d"
+  integrity sha512-itrsBExc3J208+X1cTFJUlkOJaMl6ZfDVZRMeka2unWMZ7DNXXLg4mq1REC/nvhl5g2he7HSZvqGh6n7z/kuQQ==
   dependencies:
     "@vercel/nft" "^0.22.1"
     esbuild "^0.16.3"
