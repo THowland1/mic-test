@@ -8,8 +8,24 @@
 	import Trash from './Icons/Trash.svelte';
 	import { persistedWritable } from '../persisted-writable';
 	import ArrowDownTray from './Icons/ArrowDownTray.svelte';
+	import MediaRecorderComponent from './MediaRecorderComponent.svelte';
+	import Video from '../lib/Video.svelte';
 
 	let audioDevicesLoading = false;
+
+	async function addDisplayDevice() {
+		const result = await navigator.mediaDevices.getDisplayMedia({
+			video: {},
+			audio: {
+				echoCancellation: false,
+				noiseSuppression: false,
+				sampleRate: 44100,
+				suppressLocalAudioPlayback: false
+			}
+		});
+		tabs.push(result);
+		tabs = tabs;
+	}
 
 	async function refreshAudioDevices(fakeDelay = 1000) {
 		audioDevicesLoading = true;
@@ -50,6 +66,7 @@
 	});
 
 	let recordings: { id: string; deviceLabel: string; audio: Blob; name: string }[] = [];
+	let tabs: MediaStream[] = [];
 </script>
 
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
@@ -115,6 +132,46 @@
 		{/each}
 	</div>
 {/if}
+
+<h2 class="text-sm uppercase font-semibold text-neutral-500 mt-4 mb-2">Tab Audio</h2>
+
+<div class="flex gap-3 flex-wrap">
+	{#each tabs as stream}
+		<div
+			class="min-w-[175px] relative grid rounded p-4 flex-1 border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
+		>
+			<div class="row-start-1 col-start-1">
+				<Video class="absolute inset-0 w-full h-full opacity-30" {stream} autoplay muted />
+			</div>
+			<div class="row-start-1 col-start-1 z-10">
+				<MediaRecorderComponent
+					{stream}
+					on:recordingCreated={async (e) => {
+						recordings = [
+							{
+								id: uuid(),
+								name: `Recording ${recordings.length + 1}`,
+								audio: e.detail,
+								deviceLabel: 'Tab recording'
+							},
+							...recordings
+						];
+					}}
+				/>
+			</div>
+		</div>
+	{/each}
+	<div
+		class="min-w-[175px]  flex flex-col justify-between rounded p-4 flex-1 border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
+	>
+		<div class="h-8 leading-none">Share audio from a tab</div>
+		<button
+			on:click={() => addDisplayDevice()}
+			class="rounded py-1 px-3  bg-neutral-700/30 hover:bg-neutral-700 text-sm font-medium border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
+			>Pick a tab to share</button
+		>
+	</div>
+</div>
 
 <h2 class="text-sm uppercase font-semibold text-neutral-500 mt-4 mb-2">Recordings</h2>
 <div class="h-[1px] w-full bg-neutral-900" />

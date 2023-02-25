@@ -28,8 +28,7 @@
 
 		analyser.getByteTimeDomainData(dataArray);
 
-		canvasCtx.fillStyle = 'rgb(38, 38, 38)';
-		canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+		canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
 		canvasCtx.lineWidth = 2;
 		canvasCtx.strokeStyle = 'rgb(200, 200, 200)';
