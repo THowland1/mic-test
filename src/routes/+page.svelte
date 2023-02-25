@@ -7,12 +7,7 @@
 	import { v4 as uuid } from 'uuid';
 	import Trash from './Icons/Trash.svelte';
 	import { persistedWritable } from '../persisted-writable';
-	import { page } from '$app/stores';
-	const TITLE = 'Mic Check';
-	const DESCRIPTION = "Check all your device's microphones!";
-	const IMAGE = `${$page.url.origin}/og-image.png`;
-
-	const URL = $page.url;
+	import ArrowDownTray from './Icons/ArrowDownTray.svelte';
 
 	let audioDevicesLoading = false;
 
@@ -57,29 +52,6 @@
 	let recordings: { id: string; deviceLabel: string; audio: Blob; name: string }[] = [];
 </script>
 
-<svelte:head>
-	<title>Mic check</title>
-	<base href="/" />
-
-	<meta name="author" content="Tom Howland" />
-	<meta property="og:locale" content="en_GB" />
-	<meta property="og:url" content={URL.toString()} />
-	<meta property="og:type" content="website" />
-
-	<meta name="twitter:card" content="summary_large_image" />
-
-	<title>{TITLE}</title>
-
-	<meta name="description" content={DESCRIPTION} />
-	<meta property="og:title" content={TITLE} />
-	<meta property="og:description" content={DESCRIPTION} />
-	<meta property="og:site_name" content={TITLE} />
-	<meta name="twitter:title" content={TITLE} />
-	<meta name="twitter:description" content={DESCRIPTION} />
-	<meta name="twitter:image:alt" content={TITLE} />
-	<meta property="og:image" content={IMAGE} />
-	<meta name="twitter:image" content={IMAGE} />
-</svelte:head>
 <h1 class="text-xl uppercase font-bold text-neutral-500 text-center tracking-wider">Mic check</h1>
 <div class=" mt-4 mb-2 flex gap-2 items-center">
 	<h2 class="text-sm uppercase font-semibold text-neutral-500">Audio devices</h2>
@@ -157,14 +129,23 @@
 						{recording.deviceLabel}
 					</div>
 				</div>
-				<button
-					class="rounded-full hover:bg-neutral-700 p-2"
-					on:click={() => {
-						recordings = recordings.filter(({ id }) => id !== recording.id);
-					}}
-				>
-					<Trash class="w-6 h-6 opacity-0 transition-opacity group-hover:opacity-100" />
-				</button>
+				<div class="flex gap-2">
+					<a
+						class="rounded-full bg-neutral-700/30 hover:bg-neutral-700 p-2 opacity-0 transition-opacity group-hover:opacity-100 hover-none:opacity-100"
+						href={URL.createObjectURL(recording.audio)}
+						download
+					>
+						<ArrowDownTray class="w-4 h-4 " />
+					</a>
+					<button
+						class="rounded-full bg-neutral-700/30 hover:bg-neutral-700 p-2 opacity-0 transition-opacity group-hover:opacity-100 hover-none:opacity-100"
+						on:click={() => {
+							recordings = recordings.filter(({ id }) => id !== recording.id);
+						}}
+					>
+						<Trash class="w-4 h-4 " />
+					</button>
+				</div>
 			</div>
 			<div class="flex-1">
 				<WaveForm audio={recording.audio} />

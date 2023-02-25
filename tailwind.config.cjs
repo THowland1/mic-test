@@ -13,6 +13,9 @@ module.exports = {
 				'ellipsis-1': 'ellipsis 2s infinite 0s',
 				'ellipsis-2': 'ellipsis 2s infinite .1s',
 				'ellipsis-3': 'ellipsis 2s infinite .2s'
+			},
+			screens: {
+				'hover-none': { raw: '(hover: none)' }
 			}
 		}
 	},
