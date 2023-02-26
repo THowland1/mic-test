@@ -201,7 +201,7 @@
 					<a
 						class="rounded-full bg-neutral-700/30 hover:bg-neutral-700 p-2 opacity-0 transition-opacity group-hover:opacity-100 hover-none:opacity-100"
 						href={URL.createObjectURL(recording.audio)}
-						download
+						download={recording.name}
 					>
 						<ArrowDownTray class="w-4 h-4 " />
 					</a>
