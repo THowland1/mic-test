@@ -34,7 +34,7 @@
 				);
 			}
 		} catch (error) {
-			alert('This feature does not work on your device. Try using Chrome on your browser.');
+			alert('This feature does not work on your device. Try using Chrome on your laptop/desktop.');
 		}
 	}
 
@@ -89,9 +89,7 @@
 		</button>
 	{/if}
 </div>
-{#if $microphonePermission === undefined}
-	<div class="h-14" />
-{:else if $microphonePermission === 'denied'}
+{#if $microphonePermission === 'denied'}
 	<div
 		class="rounded p-4 flex gap-2 items-center border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 	>
@@ -100,7 +98,7 @@
 			To see your microphones, you will need update you browser's permissions for this site
 		</span>
 	</div>
-{:else if $microphonePermission === 'prompt'}
+{:else if $microphonePermission === 'prompt' || $microphonePermission === undefined}
 	<div
 		class="rounded p-4 flex gap-2 items-center border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 	>
