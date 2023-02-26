@@ -150,7 +150,7 @@
 			class="min-w-[175px] relative grid rounded p-4 flex-1 border  border-neutral-700/60  shadow-[-1px_-1px_0_0_black,inset_-1px_-1px_0_0_black] shadow-neutral-900"
 		>
 			<div class="row-start-1 col-start-1">
-				<Video class="absolute inset-0 w-full h-full opacity-30" {stream} autoplay muted />
+				<Video class="absolute inset-0 w-full h-full opacity-30" {stream} autoplay />
 			</div>
 			<div class="row-start-1 col-start-1 z-10">
 				<MediaRecorderComponent

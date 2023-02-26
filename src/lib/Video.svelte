@@ -10,6 +10,7 @@
 
 	$: if (video) {
 		video.srcObject = stream;
+		video.muted = true;
 	}
 </script>
 
