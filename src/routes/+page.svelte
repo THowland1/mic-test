@@ -14,17 +14,28 @@
 	let audioDevicesLoading = false;
 
 	async function addDisplayDevice() {
-		const result = await navigator.mediaDevices.getDisplayMedia({
-			video: {},
-			audio: {
-				echoCancellation: false,
-				noiseSuppression: false,
-				sampleRate: 44100,
-				suppressLocalAudioPlayback: false
+		try {
+			const result = await navigator.mediaDevices.getDisplayMedia({
+				video: {},
+				audio: {
+					echoCancellation: false,
+					noiseSuppression: false,
+					sampleRate: 44100,
+					suppressLocalAudioPlayback: false
+				}
+			});
+			const hasAudio = Boolean(result.getAudioTracks().length);
+			if (hasAudio) {
+				tabs.push(result);
+				tabs = tabs;
+			} else {
+				alert(
+					'You need to pick a tab and select "Share tab audio". Your browser does not allow sharing audio from the whole screen'
+				);
 			}
-		});
-		tabs.push(result);
-		tabs = tabs;
+		} catch (error) {
+			alert('This feature does not work on your device. Try using Chrome on your browser.');
+		}
 	}
 
 	async function refreshAudioDevices(fakeDelay = 1000) {
