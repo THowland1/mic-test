@@ -60,8 +60,13 @@
 	}
 
 	async function refreshMicrophonePermission() {
-		const { state } = await navigator.permissions.query({ name: 'microphone' as unknown as any });
-		$microphonePermission = state;
+		try {
+      const { state } = await navigator.permissions.query({ name: 'microphone' as unknown as any });
+      $microphonePermission = state;
+    } catch(error) {
+      console.info('Firefox does not support microphone permissions, so we will assume it is granted and let the browser prompt for each one');
+      $microphonePermission = 'granted';
+    }
 	}
 
 	let devices = persistedWritable<MediaDeviceInfo[]>('devices', []);

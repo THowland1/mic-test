@@ -16,6 +16,7 @@ export function persistedWritable<T>(
 				set(JSON.parse(fromStorage));
 			}
 			subscribe((newvalue) => {
+        if(!newvalue) return;
 				localStorage.setItem(key, JSON.stringify(newvalue));
 			});
 		}
