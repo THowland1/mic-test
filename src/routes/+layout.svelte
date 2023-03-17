@@ -4,9 +4,13 @@
 
 <svelte:head>
 	<meta charset="utf-8" />
-	<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
+	<link rel="icon" href="https://mic.tomhowland.com/favicon.ico" />
 
-	<link rel="manifest" crossorigin="use-credentials" href="%sveltekit.assets%/manifest.json" />
+	<link
+		rel="manifest"
+		crossorigin="use-credentials"
+		href="https://mic.tomhowland.com/manifest.json"
+	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 	<meta name="theme-color" content="#262626" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
