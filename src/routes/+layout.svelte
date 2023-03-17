@@ -15,27 +15,30 @@
 	<meta name="theme-color" content="#262626" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-	<title>Mic check</title>
 	<base href="/" />
 
 	<meta name="author" content="Tom Howland" />
-	<meta property="og:locale" content="en_GB" />
+
+	<!-- HTML Meta Tags -->
+	<title>Mic Check</title>
+	<meta name="description" content="Check all your device's microphones!" />
+
+	<!-- Facebook Meta Tags -->
 	<meta property="og:url" content="https://mic.tomhowland.com/" />
 	<meta property="og:type" content="website" />
-
-	<meta name="twitter:card" content="summary_large_image" />
-
-	<meta name="description" content="Check all your device's microphones!" />
 	<meta property="og:title" content="Mic Check" />
 	<meta property="og:description" content="Check all your device's microphones!" />
-	<meta property="og:site_name" content="Mic Check" />
-	<meta name="twitter:title" content="Mic Check" />
-	<meta name="twitter:description" content="Check all your device's microphones!" />
-	<meta name="twitter:image:alt" content="Mic Check" />
 	<meta
 		property="og:image"
 		content="https://res.cloudinary.com/desh5zjme/image/upload/v1679040284/mic-og-image_1200x630.png"
 	/>
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="twitter:domain" content="mic.tomhowland.com" />
+	<meta property="twitter:url" content="https://mic.tomhowland.com/" />
+	<meta name="twitter:title" content="Mic Check" />
+	<meta name="twitter:description" content="Check all your device's microphones!" />
 	<meta
 		name="twitter:image"
 		content="https://res.cloudinary.com/desh5zjme/image/upload/v1679040284/mic-og-image_1200x630.png"
