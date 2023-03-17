@@ -28,10 +28,7 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Mic Check" />
 	<meta property="og:description" content="Check all your device's microphones!" />
-	<meta
-		property="og:image"
-		content="https://res.cloudinary.com/desh5zjme/image/upload/v1679040284/mic-og-image_1200x630.png"
-	/>
+	<meta property="og:image" content="https://mic.tomhowland.com/og-image.png" />
 
 	<!-- Twitter Meta Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
@@ -39,10 +36,7 @@
 	<meta property="twitter:url" content="https://mic.tomhowland.com/" />
 	<meta name="twitter:title" content="Mic Check" />
 	<meta name="twitter:description" content="Check all your device's microphones!" />
-	<meta
-		name="twitter:image"
-		content="https://res.cloudinary.com/desh5zjme/image/upload/v1679040284/mic-og-image_1200x630.png"
-	/>
+	<meta name="twitter:image" content="https://mic.tomhowland.com/og-image.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
